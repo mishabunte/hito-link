@@ -138,7 +138,61 @@ https://github.com/mishabunte/hito-link/tree/main/js
 
 ### CoreNFC Swift 
 
-```
+```swift
+import CoreNFC
+
+class NFCController: NSObject, NFCNDEFReaderSessionDelegate {
+
+   // ..................
+
+   func readerSession(_ session: NFCNDEFReaderSession, didDetect tags: [NFCNDEFTag]) {
+        
+        let payload = NFCNDEFPayload(format: NFCTypeNameFormat.nfcWellKnown,
+                                     type: Data(_: [0x54]), identifier: Data(),
+                                     payload: hitoNfcRequest.payload.data(using: .utf8)!)
+
+        guard tags.count == 1 else {
+            session.invalidate(errorMessage: "Hito Device protocol is invalid.")
+            return
+        }
+        let currentTag = tags.first!
+
+        session.connect(to: currentTag) { error in
+
+            guard error == nil else {
+                session.invalidate(errorMessage: "Could not connect to Hito Wallet.")
+                return
+            }
+
+            currentTag.queryNDEFStatus { status, capacity, error in
+                guard error == nil else {
+                    session.invalidate(errorMessage: "Could not query status of Hito Wallet.")
+                    return
+                }
+
+                switch status {
+                case .notSupported:
+                    session.invalidate(errorMessage: "Protocol is not supported.")
+                case .readOnly:
+                    session.invalidate(errorMessage: "Protocol is only readable.")
+                case .readWrite:
+                    let message = NFCNDEFMessage.init(records: [payload])
+                    currentTag.writeNDEF(message) { error in
+                        if error != nil {
+                            session.invalidate(errorMessage: "Failed to write message.")
+                        } else {
+                            session.alertMessage = "Scan to Transmit"
+                            self.hitoNfcRequest.isDataTransmitted = true
+                            session.invalidate()
+                        }
+                    }
+                @unknown default:
+                    session.invalidate(errorMessage: "Unknown status of device.")
+                }
+            }
+        }
+    }
+}
 ```
 
 https://github.com/mishabunte/hito-link/tree/main/swift
