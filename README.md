@@ -133,6 +133,13 @@ bitcoin:tb1q4k345qwkhss6x0cz0fwcsurw2qngmvwl9tf3sk?bip32=m/44'/1'/0'/0/0
 ```javascript
 const ndef = new NDEFReader();
 
+let nfcPayload = 
+  'eth.send:0x56DCE5b7A8656b1aE45a0FbfCe504CE59196C7b8:' + 
+  '0xee818d840b766ae082520894feed146aa5f20bc991a994a1ac2fe0bb75df2bb087038d7ea4c680008083aa36a78080';
+
+let nfcPayloadBitcoinKey = 
+  'hito.pubkey:secp256k1:ripemd160:bech32:m/44'/1'/0'/0/0::';
+
 await ndef.write({ 
     records: [ {                                
         data: nfcPayload,·                                                 
