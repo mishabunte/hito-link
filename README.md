@@ -97,7 +97,7 @@ the hex format as a qr-code
 
 #### NDEF Payload - signing bitcoin output hash using bitcoin testnet address  
 `
-
+hito.sign:secp256k1:raw:hex:m/44'/0'/0'/0/0:000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f:callback_url?
 `
 
 ## <a name="bip44"/>4. Get pubkey/address for a BIP44  
@@ -134,15 +134,14 @@ bitcoin:tb1q4k345qwkhss6x0cz0fwcsurw2qngmvwl9tf3sk?bip32=m/44'/1'/0'/0/0
 
 ```
 
-[webnfc-hito.js](./src/webnfc-hito.js)
-
+https://github.com/mishabunte/hito-link/tree/main/js
 
 ### CoreNFC Swift 
 
 ```
 ```
 
-[./src/NFCController.swift](./src/NFCController.swif)
+https://github.com/mishabunte/hito-link/tree/main/swift
 
 ## <a name="libs"/>6. Libraries
 
