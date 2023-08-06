@@ -131,10 +131,18 @@ bitcoin:tb1q4k345qwkhss6x0cz0fwcsurw2qngmvwl9tf3sk?bip32=m/44'/1'/0'/0/0
 ### WebNFC Javascript
 
 ```javascript
+const ndef = new NDEFReader();
+
+await ndef.write({ 
+    records: [ {                                
+        data: nfc_msg,·                                                 
+        recordType: "text",·                                            
+        lang: 'en',                                                     
+    }],
+});      
 
 ```
 
-https://github.com/mishabunte/hito-link/tree/main/js
 
 ### CoreNFC Swift 
 
