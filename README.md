@@ -135,7 +135,7 @@ const ndef = new NDEFReader();
 
 await ndef.write({ 
     records: [ {                                
-        data: nfc_msg,·                                                 
+        data: nfcPayload,·                                                 
         recordType: "text",·                                            
         lang: 'en',                                                     
     }],
